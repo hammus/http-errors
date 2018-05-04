@@ -12,7 +12,6 @@
  * @private
  */
 
-var deprecate = require('depd')('http-errors')
 var setPrototypeOf = require('setprototypeof')
 var statuses = require('statuses')
 var inherits = require('inherits')
@@ -64,7 +63,7 @@ function createError () {
       case 'number':
         status = arg
         if (i !== 0) {
-          deprecate('non-first-argument status code; replace with createError(' + arg + ', ...)')
+          console.error('non-first-argument status code; replace with createError(' + arg + ', ...)')
         }
         break
       case 'object':
@@ -74,7 +73,7 @@ function createError () {
   }
 
   if (typeof status === 'number' && (status < 400 || status >= 600)) {
-    deprecate('non-error status code; use only 4xx or 5xx status codes')
+    console.erro('non-error status code; use only 4xx or 5xx status codes')
   }
 
   if (typeof status !== 'number' ||
@@ -242,10 +241,6 @@ function populateConstructorExports (exports, codes, HttpError) {
       exports[name] = CodeError
     }
   })
-
-  // backwards-compatibility
-  exports["I'mateapot"] = deprecate.function(exports.ImATeapot,
-    '"I\'mateapot"; use "ImATeapot" instead')
 }
 
 /**
